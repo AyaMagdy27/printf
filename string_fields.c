@@ -18,12 +18,25 @@ char *get_precision(char *s, params_t *params, va_list ap)
 	if (*s == '*')
 	{
 		d = va_arg(ap, int);
+		if (d < 0)
+		{
+			/* Precision value cannot be negative */
+			d = 0;
+		}
 		s++;
 	}
 	else
 	{
 		while (_isdigit(*s))
+		{
+			/* Calculate precision value from format string */
 			d = d * 10 + (*s++ - '0');
+		}
+	}
+	/* Ensure precision value does not exceed maximum value of int */
+	if (d > INT_MAX)
+	{
+		d = INT_MAX;
 	}
 	params->precision = d;
 	return (s);
