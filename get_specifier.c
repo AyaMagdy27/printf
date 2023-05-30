@@ -84,13 +84,13 @@ int get_flag(char *s, params_t *params)
 	return (i);
 }
 /**
- * get_modeifier- finds the modifier function
+ * get_modifier- finds the modifier function
  * @s: the format string
  * @params: the parameters struct
  *
  * Return: if modifier is valid
  */
-int get_modeifier(char *s, params_t *params)
+int get_modifier(char *s, params_t *params)
 {
 	int i = 0;
 
@@ -114,7 +114,7 @@ int get_modeifier(char *s, params_t *params)
  *
  * Return: new pointer
  */
-int *get_width(char *s, params_t *params, va_list ap)
+char *get_width(char *s, params_t *params, va_list ap)
 {
 	int d = 0;
 
@@ -125,7 +125,7 @@ int *get_width(char *s, params_t *params, va_list ap)
 	}
 	else
 	{
-		while (isdigit(*s))
+		while (_isdigit(*s))
 			d = d * 10 + (*s++ - '0');
 	}
 	params->width = d;
