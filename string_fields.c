@@ -12,6 +12,13 @@ char *get_precision(char *s, params_t *params, va_list ap)
 {
 	int d = 0;
 
+	/* Check for NULL params */
+	if (params == NULL)
+	{
+		/* Handle error: params is NULL */
+		return (NULL);
+	}
+
 	if (*s != '.')
 		return (s);
 	s++;
@@ -36,6 +43,7 @@ char *get_precision(char *s, params_t *params, va_list ap)
 	/* Ensure precision value does not exceed maximum value of int */
 	if (d > INT_MAX)
 	{
+		params->error = true;
 		d = INT_MAX;
 	}
 	params->precision = d;
