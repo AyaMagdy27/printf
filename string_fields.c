@@ -10,6 +10,11 @@
 
 char *get_precision(char *s, params_t *params, va_list ap)
 {
+	if (params == NULL)
+	{
+		return (NULL);
+	}
+
 	int d = 0;
 
 	if (*s != '.')
