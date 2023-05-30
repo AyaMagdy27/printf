@@ -1,6 +1,7 @@
 #include "main.h"
+
 /**
- * _printf- print every thing
+ * _printf - prints anything
  * @format: the format string
  *
  * Return: number of bytes printed
@@ -14,7 +15,7 @@ int _printf(const char *format, ...)
 
 	va_start(ap, format);
 
-	if (!format || format[0] == '%' && !format[1])
+	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
 	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
@@ -28,9 +29,9 @@ int _printf(const char *format, ...)
 		}
 		start = p;
 		p++;
-		while (get_flag(p, &params))/* while char at p is flagchar */
+		while (get_flag(p, &params)) /* while char at p is flag char */
 		{
-			p++;/* next char */
+			p++; /* next char */
 		}
 		p = get_width(p, &params, ap);
 		p = get_precision(p, &params, ap);
@@ -38,9 +39,9 @@ int _printf(const char *format, ...)
 			p++;
 		if (!get_specifier(p))
 			sum += print_from_to(start, p,
-					params.l_modifie || params.h_modifier ? p - 1 : 0);
+				params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-			sum += int get_print_func(char *s, va_list ap, params_t *params);
+			sum += get_print_func(p, ap, &params);
 	}
 	_putchar(BUF_FLUSH);
 	va_end(ap);

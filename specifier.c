@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * get_specifier- finds the format function
- * @s: format string
+ * get_specifier - finds the format func
+ * @s: the format string
  *
  * Return: the number of bytes printed
  */
@@ -27,16 +27,19 @@ int (*get_specifier(char *s))(va_list ap, params_t *params)
 	};
 	int i = 0;
 
-	while (specifier[i].specifier)
+	while (specifiers[i].specifier)
 	{
-		if (*s == specifier[i].specifier[0])
-			return (specifier[i].f);
+		if (*s == specifiers[i].specifier[0])
+		{
+			return (specifiers[i].f);
+		}
 		i++;
 	}
 	return (NULL);
 }
+
 /**
- * get_print_func- finds the format function
+ * get_print_func - finds the format func
  * @s: the format string
  * @ap: argument pointer
  * @params: the parameters struct
@@ -53,11 +56,11 @@ int get_print_func(char *s, va_list ap, params_t *params)
 }
 
 /**
- * get_flag- finds the flag function
+ * get_flag - finds the flag func
  * @s: the format string
  * @params: the parameters struct
  *
- * Return: if flag is valid
+ * Return: if flag was valid
  */
 int get_flag(char *s, params_t *params)
 {
@@ -83,38 +86,40 @@ int get_flag(char *s, params_t *params)
 	}
 	return (i);
 }
+
 /**
- * get_modeifier- finds the modifier function
+ * get_modifier - finds the modifier func
  * @s: the format string
  * @params: the parameters struct
  *
- * Return: if modifier is valid
+ * Return: if modifier was valid
  */
-int get_modeifier(char *s, params_t *params)
+int get_modifier(char *s, params_t *params)
 {
 	int i = 0;
 
 	switch (*s)
 	{
-		case 'h':
-			i = params->h_modifier = 1;
-			break;
-		case 'l':
-			i = params->l_modifier = 1;
-			break;
+	case 'h':
+		i = params->h_modifier = 1;
+		break;
+	case 'l':
+		i = params->l_modifier = 1;
+		break;
 	}
 	return (i);
 }
 
 /**
- * get_width- gets the width from the format string
+ * get_width - gets the width from the format string
  * @s: the format string
  * @params: the parameters struct
  * @ap: the argument pointer
  *
  * Return: new pointer
  */
-int *get_width(char *s, params_t *params, va_list ap)
+char *get_width(char *s, params_t *params, va_list ap)
+/* should this function use char **s and modify the pointer? */
 {
 	int d = 0;
 
@@ -125,7 +130,7 @@ int *get_width(char *s, params_t *params, va_list ap)
 	}
 	else
 	{
-		while (isdigit(*s))
+		while (_isdigit(*s))
 			d = d * 10 + (*s++ - '0');
 	}
 	params->width = d;
