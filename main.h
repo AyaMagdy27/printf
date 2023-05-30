@@ -1,30 +1,34 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef _PRINTF_H
+#define _PRINTF_H
 
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
 
 #define OUTPUT_BUF_SIZE 1024
-#define BUFFER_FLUSH -1
+#define BUF_FLUSH -1
+
+#define FIELD_BUF_SIZE 50
 
 #define NULL_STRING "(null)"
 
 #define PARAMS_INIT {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
-#define CONVERT_LOWERCASE 1
-#define CONVERT_UNSIGNED 2
+#define CONVERT_LOWERCASE	1
+#define CONVERT_UNSIGNED	2
 
 /**
- * struct paramters- prameters struct
+ * struct parameters - parameters struct
+ *
  * @unsign: flag if unsigned value
+ *
  * @plus_flag: on if plus_flag specified
- * @space_flag: on if space_flag specified
- * @hashtag_flag: on if hashtag_flag specified
- * @zero_flag: on if zero_flag specified
- * @minus_flag: on if minus_flag specified
+ * @space_flag: on if hashtag_flag specified
+ * @hashtag_flag: on if _flag specified
+ * @zero_flag: on if _flag specified
+ * @minus_flag: on if _flag specified
  *
  * @width: field width specified
  * @precision: field precision specified
@@ -33,28 +37,28 @@
  * @l_modifier: on if l_modifier is specified
  *
  */
-typedef struct paramters
+typedef struct parameters
 {
-	unsigned int unsign	: 1;
+	unsigned int unsign			: 1;
 
-	unsigned int plus_flag  : 1;
-	unsigned int space_flag : 1;
-	unsigned int hashtag_flag  : 1;
-	unsigned int zero_flag  : 1;
-	unsigned int minus_flag : 1;
+	unsigned int plus_flag		: 1;
+	unsigned int space_flag		: 1;
+	unsigned int hashtag_flag	: 1;
+	unsigned int zero_flag		: 1;
+	unsigned int minus_flag		: 1;
 
 	unsigned int width;
 	unsigned int precision;
 
-	unsigned int h_modifier : 1;
-	unsigned int l_modifier : 1;
-}params_t;
+	unsigned int h_modifier		: 1;
+	unsigned int l_modifier		: 1;
+} params_t;
 
 /**
- * strcut specifier- strcut token
+ * struct specifier - Struct token
  *
  * @specifier: format token
- * @f: the function associated
+ * @f: The function associated
  */
 typedef struct specifier
 {
@@ -71,7 +75,7 @@ int print_char(va_list ap, params_t *params);
 int print_int(va_list ap, params_t *params);
 int print_string(va_list ap, params_t *params);
 int print_percent(va_list ap, params_t *params);
-int print_s(va_list ap, params_t *params);
+int print_S(va_list ap, params_t *params);
 
 /* number.c module */
 char *convert(long int num, int base, int flags, params_t *params);
@@ -82,8 +86,8 @@ int print_address(va_list ap, params_t *params);
 int (*get_specifier(char *s))(va_list ap, params_t *params);
 int get_print_func(char *s, va_list ap, params_t *params);
 int get_flag(char *s, params_t *params);
-int get_modeifier(char *s, params_t *params);
-int *get_width(char *s, params_t *params, va_list ap);
+int get_modifier(char *s, params_t *params);
+char *get_width(char *s, params_t *params, va_list ap);
 
 /* convert_number.c module */
 int print_hex(va_list ap, params_t *params);
@@ -98,7 +102,7 @@ int print_rot13(va_list ap, params_t *params);
 
 /* print_number.c module */
 int _isdigit(int c);
-int strlen(char *s);
+int _strlen(char *s);
 int print_number(char *str, params_t *params);
 int print_number_right_shift(char *str, params_t *params);
 int print_number_left_shift(char *str, params_t *params);
@@ -106,10 +110,10 @@ int print_number_left_shift(char *str, params_t *params);
 /* params.c module */
 void init_params(params_t *params, va_list ap);
 
-/* string_fields.c module */
+/* string_fields.c modoule */
 char *get_precision(char *p, params_t *params, va_list ap);
 
-/* _printf.c module */
+/* _prinf.c module */
 int _printf(const char *format, ...);
 
-#endif /* MAIN_H */
+#endif
