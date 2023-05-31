@@ -107,6 +107,7 @@ int print_number(char *str, params_t *params);
 int print_number_right_shift(char *str, params_t *params);
 int print_number_left_shift(char *str, params_t *params);
 
+int print_float(va_list ap, params_t *params);
 
 /* params.c module */
 void init_params(params_t *params, va_list ap);
